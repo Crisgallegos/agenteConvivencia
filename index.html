@@ -9,11 +9,6 @@
         body {
             background-color: #f8f9fa;
         }
-        .container {
-            max-width: 800px;
-            margin-top: 50px;
-            margin-bottom: 50px;
-        }
         .card {
             border: none;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -25,18 +20,26 @@
             border-bottom: none;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
-            font-size: 1.5rem;
+            font-size: 1.15rem;
             text-align: center;
-            padding: 1.5rem;
+            padding: 1rem 0.5rem;
         }
         .form-label {
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 0.98rem;
+        }
+        .form-control, .form-select, textarea {
+            font-size: 0.98rem !important;
+            padding: 0.5rem 0.75rem !important;
+        }
+        .btn, .btn-lg {
+            font-size: 1rem !important;
+            padding: 0.5rem 1.2rem !important;
         }
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
             font-weight: 600;
-            padding: 10px 20px;
             transition: background-color 0.3s ease;
         }
         .btn-primary:hover {
@@ -44,163 +47,170 @@
             border-color: #0056b3;
         }
         .resultados-container {
-            margin-top: 20px;
+            margin-top: 16px;
         }
         #sugerenciaIA {
-            padding: 20px;
+            padding: 12px;
             border-radius: 10px;
             background-color: #e9ecef;
             white-space: pre-wrap;
+            font-size: 0.97rem;
+        }
+        .sidebar-title {
+            font-size: 1.2rem;
+        }
+        @media (max-width: 991.98px) {
+            nav[style*="width: 260px"] {
+                width: 100vw !important;
+                min-height: unset !important;
+                flex-direction: row !important;
+                padding: 0.5rem 1rem !important;
+                align-items: flex-start !important;
+            }
+            .sidebar-title, nav h3 {
+                font-size: 1rem !important;
+            }
+            .d-flex[style*="min-height: 100vh"] {
+                flex-direction: column !important;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .card-header, .card-body, main.p-4 {
+                padding: 0.7rem !important;
+            }
+            .row.g-4.mb-4 > .col-md-4 {
+                margin-bottom: 1rem;
+            }
+            .card {
+                border-radius: 10px;
+            }
+            .form-control, .form-select, textarea {
+                font-size: 0.95rem !important;
+                padding: 0.4rem 0.6rem !important;
+            }
+            .btn, .btn-lg {
+                font-size: 0.97rem !important;
+                padding: 0.45rem 1rem !important;
+            }
         }
     </style>
 </head>
-<body>
 
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            Sistema de Apoyo a la Convivencia Escolar
-        </div>
-        <div class="card-body p-4">
-            <form id="formularioIncidente">
-                <div class="mb-3">
-                    <label for="nombreAlumno" class="form-label">Nombre del Alumno</label>
-                    <input type="text" class="form-control" id="nombreAlumno" placeholder="Ej: Juan Pérez" required>
-                </div>
-                <div class="mb-3">
-                    <label for="cursoAlumno" class="form-label">Curso</label>
-                    <select class="form-select" id="cursoAlumno" required>
-                        <option value="">Seleccione el curso</option>
-                        <option value="1 básico">1° Básico</option>
-                        <option value="2 básico">2° Básico</option>
-                        <option value="3 básico">3° Básico</option>
-                        <option value="4 básico">4° Básico</option>
-                        <option value="5 básico">5° Básico</option>
-                        <option value="6 básico">6° Básico</option>
-                        <option value="7 básico">7° Básico</option>
-                        <option value="8 básico">8° Básico</option>
-                        <option value="1 medio">1° Medio</option>
-                        <option value="2 medio">2° Medio</option>
-                        <option value="3 medio">3° Medio</option>
-                        <option value="4 medio">4° Medio</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="descripcionIncidente" class="form-label">Descripción del Incidente</label>
-                    <textarea class="form-control" id="descripcionIncidente" rows="5" placeholder="Describe detalladamente lo sucedido..." required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Analizar Caso</button>
-            </form>
-
-            <div id="resultados" class="resultados-container" style="display:none;">
-                <hr>
-                <h5>Resultado del Análisis de la IA</h5>
-                <pre id="sugerenciaIA"></pre>
-
-                <form id="formularioGuardar">
-                    <div class="mb-3">
-                        <label for="decisionFinal" class="form-label">Decisión Final</label>
-                        <textarea class="form-control" id="decisionFinal" rows="3" placeholder="Confirma o modifica la sanción sugerida..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Guardar en el Historial</button>
-                </form>
+<body style="background-color: #f8f9fa; font-family: 'Segoe UI', Arial, sans-serif;">
+    <div class="d-flex" style="min-height: 100vh;">
+        <!-- Sidebar -->
+        <nav class="bg-primary text-white p-4 d-flex flex-column align-items-center" style="width: 260px; min-height: 100vh;">
+            <div class="mb-4 w-100 text-center">
+                <i class="bi bi-mortarboard-fill" style="font-size: 2.5rem;"></i>
+                <h3 class="mt-2 mb-0" style="font-weight: 700; letter-spacing: 1px;">Convivencia Escolar</h3>
             </div>
+            <ul class="nav flex-column w-100">
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link text-white active" style="font-size: 1.1rem;"><i class="bi bi-house-door me-2"></i>Dashboard</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="historial.html" class="nav-link text-white" style="font-size: 1.1rem;"><i class="bi bi-clock-history me-2"></i>Historial</a>
+                </li>
+            </ul>
+            <div class="mt-auto w-100 text-center">
+                <small>© 2025 Convivencia Escolar</small>
+            </div>
+        </nav>
+        <!-- Main Content -->
+        <div class="flex-grow-1">
+            <header class="bg-white shadow-sm py-3 px-4 d-flex align-items-center justify-content-between">
+                <h2 class="mb-0" style="font-weight: 700; color: #0d6efd; letter-spacing: 1px;">Dashboard</h2>
+                <span class="badge bg-info text-dark fs-6">Usuario: Administrador</span>
+            </header>
+            <main class="p-4">
+                <!-- Tarjetas resumen -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm rounded-3 text-center">
+                            <div class="card-body">
+                                <i class="bi bi-people-fill text-primary" style="font-size: 2rem;"></i>
+                                <h5 class="mt-2 mb-1">Alumnos Registrados</h5>
+                                <p class="fs-4 mb-0" id="totalAlumnos">--</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm rounded-3 text-center">
+                            <div class="card-body">
+                                <i class="bi bi-exclamation-triangle-fill text-warning" style="font-size: 2rem;"></i>
+                                <h5 class="mt-2 mb-1">Incidentes Reportados</h5>
+                                <p class="fs-4 mb-0" id="totalIncidentes">--</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm rounded-3 text-center">
+                            <div class="card-body">
+                                <i class="bi bi-bar-chart-fill text-success" style="font-size: 2rem;"></i>
+                                <h5 class="mt-2 mb-1">Sanciones Aplicadas</h5>
+                                <p class="fs-4 mb-0" id="totalSanciones">--</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Formulario principal -->
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-header bg-primary text-white rounded-top-4 text-center">
+                        <h3 class="mb-0" style="font-weight: 700; letter-spacing: 1px;">Registrar Incidente</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="formularioIncidente" class="mb-4">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="nombreAlumno" class="form-label fw-semibold">Nombre del Alumno</label>
+                                    <input type="text" class="form-control form-control-lg shadow-sm" id="nombreAlumno" placeholder="Ej: Juan Pérez" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cursoAlumno" class="form-label fw-semibold">Curso</label>
+                                    <select class="form-select form-select-lg shadow-sm" id="cursoAlumno" required>
+                                        <option value="">Seleccione el curso</option>
+                                        <option value="1 básico">1° Básico</option>
+                                        <option value="2 básico">2° Básico</option>
+                                        <option value="3 básico">3° Básico</option>
+                                        <option value="4 básico">4° Básico</option>
+                                        <option value="5 básico">5° Básico</option>
+                                        <option value="6 básico">6° Básico</option>
+                                        <option value="7 básico">7° Básico</option>
+                                        <option value="8 básico">8° Básico</option>
+                                        <option value="1 medio">1° Medio</option>
+                                        <option value="2 medio">2° Medio</option>
+                                        <option value="3 medio">3° Medio</option>
+                                        <option value="4 medio">4° Medio</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="descripcionIncidente" class="form-label fw-semibold">Descripción del Incidente</label>
+                                    <textarea class="form-control form-control-lg shadow-sm" id="descripcionIncidente" rows="5" placeholder="Describe detalladamente lo sucedido..." required></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100 mt-4 shadow">Analizar Caso</button>
+                        </form>
+                        <div id="resultados" class="resultados-container" style="display:none;">
+                            <hr>
+                            <h4 class="mb-3" style="font-weight: 600; color: #0d6efd;">Resultado del Análisis de la IA</h4>
+                            <pre id="sugerenciaIA" class="bg-light p-3 rounded-3"></pre>
+                            <form id="formularioGuardar">
+                                <div class="mb-3">
+                                    <label for="decisionFinal" class="form-label fw-semibold">Decisión Final</label>
+                                    <textarea class="form-control form-control-lg shadow-sm" id="decisionFinal" rows="3" placeholder="Confirma o modifica la sanción sugerida..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-lg w-100 shadow">Guardar en el Historial</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    const appScriptUrl = 'https://script.google.com/macros/s/AKfycbx2xLkEkX2xeRivGq6YPtK45oYOw2QTRzHNAynEbLwO0VqdndmoOy9hednk1lM04E3k/exec';
-
-    // Función para manejar el envío del formulario de "Analizar Caso"
-    document.getElementById('formularioIncidente').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        
-        const nombreAlumno = document.getElementById('nombreAlumno').value;
-        const cursoAlumno = document.getElementById('cursoAlumno').value;
-        const descripcion = document.getElementById('descripcionIncidente').value;
-        const resultadosDiv = document.getElementById('resultados');
-        const sugerenciaIA = document.getElementById('sugerenciaIA');
-        const decisionFinal = document.getElementById('decisionFinal');
-
-        // Muestra un mensaje de carga
-        sugerenciaIA.textContent = "Analizando el caso con la IA... por favor, espera.";
-        resultadosDiv.style.display = 'block';
-
-        const formData = new FormData();
-        formData.append('action', 'analizar');
-        formData.append('nombreAlumno', nombreAlumno);
-        formData.append('cursoAlumno', cursoAlumno);
-        formData.append('descripcionIncidente', descripcion);
-
-        try {
-            const response = await fetch(appScriptUrl, {
-                method: 'POST',
-                body: formData
-            });
-            const data = await response.json();
-
-            if (data.resultado === 'éxito') {
-                // AHORA LA RESPUESTA DE LA IA ES UN OBJETO JSON
-                const iaResultados = data.respuestaIA;
-
-                // Mostramos un resumen de la IA en la página
-                sugerenciaIA.textContent = `Falta: ${iaResultados.falta}\nArtículo: ${iaResultados.articulo}\nSanción: ${iaResultados.sancion}`;
-                
-                // Guardamos la sugerencia de sanción en el campo oculto
-                decisionFinal.value = iaResultados.sancion;
-
-            } else {
-                throw new Error(data.mensaje);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            sugerenciaIA.textContent = "Error al analizar el caso. Por favor, revisa tu conexión o el script de Google Apps.";
-        }
-    });
-
-    // Función para manejar el envío del formulario de "Guardar en el Historial"
-    document.getElementById('formularioGuardar').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        
-        const nombreAlumno = document.getElementById('nombreAlumno').value;
-        const cursoAlumno = document.getElementById('cursoAlumno').value;
-        const descripcion = document.getElementById('descripcionIncidente').value;
-        const sugerenciaIA = document.getElementById('sugerenciaIA').textContent;
-        const decisionFinal = document.getElementById('decisionFinal').value;
-        
-        const formData = new FormData();
-        formData.append('action', 'guardar');
-        formData.append('nombreAlumno', nombreAlumno);
-        formData.append('cursoAlumno', cursoAlumno);
-        formData.append('descripcionIncidente', descripcion);
-        formData.append('sugerenciaIA', sugerenciaIA);
-        formData.append('decisionFinal', decisionFinal);
-
-        try {
-            const response = await fetch(appScriptUrl, {
-                method: 'POST',
-                body: formData
-            });
-            const data = await response.json();
-
-            if (data.resultado === 'éxito') {
-                alert('¡Éxito! El caso ha sido guardado en el historial.');
-                document.getElementById('formularioIncidente').reset();
-                document.getElementById('formularioGuardar').reset();
-                document.getElementById('resultados').style.display = 'none';
-            } else {
-                throw new Error(data.mensaje);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Hubo un error de conexión al guardar.');
-        }
-    });
-</script>
-
+    <!-- Iconos Bootstrap opcionales -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
 
