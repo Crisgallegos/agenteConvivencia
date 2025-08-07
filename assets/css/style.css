@@ -1,0 +1,64 @@
+   body {
+      background-color: #f1f3f6;
+      font-family: 'Inter', sans-serif;
+    }
+    .bg-cotela {
+      background-color: #204285;
+    }
+    nav {
+      width: 260px;
+      min-height: 100vh;
+    }
+    nav .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+    }
+    .card {
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    }
+    .summary-icon {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      font-size: 1.8rem;
+    }
+    .card-header {
+      background-color: #204285;
+      color: white;
+      border-radius: 16px 16px 0 0;
+      font-weight: 600;
+    }
+    .btn-primary {
+      background-color: #204285;
+      border: none;
+    }
+    #resultados {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (max-width: 768px) {
+      nav {
+        width: 100%;
+        min-height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .card {
+        margin-bottom: 1rem;
+      }
+    }
