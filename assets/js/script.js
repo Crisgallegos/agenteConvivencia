@@ -1,5 +1,9 @@
 
-const appScriptUrl = 'https://script.google.com/macros/s/AKfycbx2xLkEkX2xeRivGq6YPtK45oYOw2QTRzHNAynEbLwO0VqdndmoOy9hednk1lM04E3k/exec';
+// ==========================================================
+// CÓDIGO COMPLETO PARA EL ARCHIVO script.js
+// ==========================================================
+
+const appScriptUrl = 'https://script.google.com/macros/s/AKfycbwYl5fFJKGHluL5pUSRYb7s5w4cKbNxc0_6nkdHM8oqCd9m2DKtQZC-n-CHZgDPF7bc/exec';
 
 document.addEventListener('DOMContentLoaded', function() {
     const totalAlumnosElement = document.getElementById('totalAlumnos');
@@ -56,11 +60,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const formularioGuardar = document.getElementById('formularioGuardar');
         formularioGuardar.addEventListener('submit', async function(event) {
             event.preventDefault();
+            
             const nombreAlumno = document.getElementById('nombreAlumno').value;
             const cursoAlumno = document.getElementById('cursoAlumno').value;
             const descripcion = document.getElementById('descripcionIncidente').value;
             const sugerenciaIA = document.getElementById('sugerenciaIA').textContent;
             const decisionFinal = document.getElementById('decisionFinal').value;
+            const archivos = document.getElementById('archivosAdjuntos').files;
             
             const formData = new FormData();
             formData.append('action', 'guardar');
@@ -69,6 +75,10 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('descripcionIncidente', descripcion);
             formData.append('sugerenciaIA', sugerenciaIA);
             formData.append('decisionFinal', decisionFinal);
+
+            for (const archivo of archivos) {
+                formData.append(archivo.name, archivo);
+            }
 
             try {
                 const response = await fetch(appScriptUrl, { method: 'POST', body: formData });

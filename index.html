@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
+
 <body>
   <!-- Navbar superior -->
   <nav style="background-color: #204285; min-height: 48px;" class="w-100">
@@ -19,10 +21,12 @@
       </div>
       <ul class="nav" style="gap: 4px;">
         <li class="nav-item">
-          <a class="nav-link text-white py-1 px-2" style="font-size: 1rem;" href="#"><i class="bi bi-house-door me-2"></i>Dashboard</a>
+          <a class="nav-link text-white py-1 px-2" style="font-size: 1rem;" href="#"><i
+              class="bi bi-house-door me-2"></i>Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white py-1 px-2" style="font-size: 1rem;" href="historial.html"><i class="bi bi-clock-history me-2"></i>Historial</a>
+          <a class="nav-link text-white py-1 px-2" style="font-size: 1rem;" href="historial.html"><i
+              class="bi bi-clock-history me-2"></i>Historial</a>
         </li>
       </ul>
     </div>
@@ -31,27 +35,23 @@
   <!-- Main Content -->
   <div class="container-fluid px-0">
     <div class="flex-grow-1">
-      <header class="bg-white shadow-sm py-3 px-4 d-flex align-items-center justify-content-between mt-3 rounded-3">
-        <h2 class="mb-0" style="color: #204285; font-weight: bold;">Dashboard</h2>
-        <span class="badge bg-info text-dark fs-6">Usuario: Administrador</span>
-      </header>
       <main class="p-4">
-        <hr>
-<h2>🔍 Consulta el Reglamento Escolar</h2>
-<div class="mb-3">
-    <label for="preguntaReglamento" class="form-label">¿Qué deseas saber del reglamento?</label>
-    <textarea class="form-control" id="preguntaReglamento" rows="3" placeholder="Ej: ¿Qué dice el reglamento sobre el uso del teléfono móvil?"></textarea>
-</div>
-<button type="button" class="btn btn-primary" id="btnConsultarReglamento">Consultar</button>
+        <h2>🔍 Consulta el Reglamento Escolar</h2>
+        <div class="mb-3">
+          <label for="preguntaReglamento" class="form-label">¿Qué deseas saber del reglamento?</label>
+          <textarea class="form-control" id="preguntaReglamento" rows="3"
+            placeholder="Ej: ¿Qué dice el reglamento sobre el uso del teléfono móvil?"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" id="btnConsultarReglamento">Consultar</button>
 
-<div class="mt-4" id="respuestaReglamento" style="display:none;">
-    <h4>Respuesta de la IA:</h4>
-    <div class="card p-3">
-        <p id="respuestaTexto"></p>
-    </div>
-</div>
+        <div class="mt-4" id="respuestaReglamento" style="display:none;">
+          <h4>Respuesta de la IA:</h4>
+          <div class="card p-3">
+            <p id="respuestaTexto"></p>
+          </div>
+        </div>
         <!-- Tarjetas resumen -->
-        <div class="row g-4 mb-4">
+        <div class="row g-4 mb-4 mt-4">
           <div class="col-md-4">
             <div class="card text-center p-3">
               <div class="summary-icon bg-primary text-white">
@@ -91,7 +91,8 @@
               <div class="row g-3">
                 <div class="col-md-6">
                   <label for="nombreAlumno" class="form-label fw-semibold">Nombre del Alumno</label>
-                  <input type="text" class="form-control shadow-sm" id="nombreAlumno" placeholder="Ej: Juan Pérez" required>
+                  <input type="text" class="form-control shadow-sm" id="nombreAlumno" placeholder="Ej: Juan Pérez"
+                    required>
                 </div>
                 <div class="col-md-6">
                   <label for="cursoAlumno" class="form-label fw-semibold">Curso</label>
@@ -113,8 +114,13 @@
                 </div>
                 <div class="col-12">
                   <label for="descripcionIncidente" class="form-label fw-semibold">Descripción del Incidente</label>
-                  <textarea class="form-control shadow-sm" id="descripcionIncidente" rows="5" placeholder="Describe detalladamente lo sucedido..." required></textarea>
+                  <textarea class="form-control shadow-sm" id="descripcionIncidente" rows="5"
+                    placeholder="Describe detalladamente lo sucedido..." required></textarea>
                 </div>
+                <div class="form-group mb-3">
+    <label for="archivosAdjuntos" class="form-label">Adjuntar pruebas (fotos o PDF):</label>
+    <input type="file" class="form-control" id="archivosAdjuntos" name="archivosAdjuntos" multiple accept=".jpg,.jpeg,.png,.pdf">
+</div>
               </div>
               <button type="submit" class="btn btn-primary w-100 mt-4 shadow">Analizar Caso</button>
             </form>
@@ -128,7 +134,8 @@
               <form id="formularioGuardar">
                 <div class="mb-3">
                   <label for="decisionFinal" class="form-label fw-semibold">Decisión Final</label>
-                  <textarea class="form-control shadow-sm" id="decisionFinal" rows="3" placeholder="Confirma o modifica la sanción sugerida..." required></textarea>
+                  <textarea class="form-control shadow-sm" id="decisionFinal" rows="3"
+                    placeholder="Confirma o modifica la sanción sugerida..." required></textarea>
                 </div>
                 <button type="submit" class="btn btn-success w-100 shadow">Guardar en el Historial</button>
               </form>
@@ -142,6 +149,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
+
 </html>
 
 
