@@ -1,11 +1,7 @@
 
 const appScriptUrl = 'https://script.google.com/macros/s/AKfycbx2xLkEkX2xeRivGq6YPtK45oYOw2QTRzHNAynEbLwO0VqdndmoOy9hednk1lM04E3k/exec';
 
-// ==========================================================
-// Lógica para la página principal (index.html)
-// ==========================================================
 document.addEventListener('DOMContentLoaded', function() {
-    // Si estamos en la página principal, obtenemos los resúmenes
     const totalAlumnosElement = document.getElementById('totalAlumnos');
     if (totalAlumnosElement) {
         obtenerResumen();
@@ -15,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (formularioIncidente) {
         formularioIncidente.addEventListener('submit', async function(event) {
             event.preventDefault();
-            
             const nombreAlumno = document.getElementById('nombreAlumno').value;
             const cursoAlumno = document.getElementById('cursoAlumno').value;
             const descripcion = document.getElementById('descripcionIncidente').value;
@@ -33,30 +28,22 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('descripcionIncidente', descripcion);
 
             try {
-                const response = await fetch(appScriptUrl, {
-                    method: 'POST',
-                    body: formData
-                });
+                const response = await fetch(appScriptUrl, { method: 'POST', body: formData });
                 const data = await response.json();
 
                 if (data.resultado === 'éxito') {
                     const iaResultados = data.respuestaIA;
                     let textoSugerencia = '';
-
                     if (iaResultados.reincidente) {
                         textoSugerencia += '⚠️ **ALUMNO REINCIDENTE EN CASOS DE CONVIVENCIA** ⚠️\n\n';
                     }
-
                     if (iaResultados.no_aplica) {
-                        textoSugerencia += `El caso no se ajusta al reglamento actual.
-Sugerencia para el próximo año: ${iaResultados.sugerencia_reglamento}`;
+                        textoSugerencia += `El caso no se ajusta al reglamento actual. Sugerencia para el próximo año: ${iaResultados.sugerencia_reglamento}`;
                     } else {
                         textoSugerencia += `Falta: ${iaResultados.falta}\nArtículo: ${iaResultados.articulo}\nSanción: ${iaResultados.sancion}`;
                     }
-
                     sugerenciaIA.textContent = textoSugerencia;
                     decisionFinal.value = iaResultados.sancion || iaResultados.sugerencia_reglamento;
-
                 } else {
                     throw new Error(data.mensaje);
                 }
@@ -69,7 +56,6 @@ Sugerencia para el próximo año: ${iaResultados.sugerencia_reglamento}`;
         const formularioGuardar = document.getElementById('formularioGuardar');
         formularioGuardar.addEventListener('submit', async function(event) {
             event.preventDefault();
-            
             const nombreAlumno = document.getElementById('nombreAlumno').value;
             const cursoAlumno = document.getElementById('cursoAlumno').value;
             const descripcion = document.getElementById('descripcionIncidente').value;
@@ -85,10 +71,7 @@ Sugerencia para el próximo año: ${iaResultados.sugerencia_reglamento}`;
             formData.append('decisionFinal', decisionFinal);
 
             try {
-                const response = await fetch(appScriptUrl, {
-                    method: 'POST',
-                    body: formData
-                });
+                const response = await fetch(appScriptUrl, { method: 'POST', body: formData });
                 const data = await response.json();
 
                 if (data.resultado === 'éxito') {
@@ -96,7 +79,6 @@ Sugerencia para el próximo año: ${iaResultados.sugerencia_reglamento}`;
                     document.getElementById('formularioIncidente').reset();
                     formularioGuardar.reset();
                     document.getElementById('resultados').style.display = 'none';
-                    // Volvemos a obtener el resumen para actualizar los números
                     obtenerResumen();
                 } else {
                     throw new Error(data.mensaje);
@@ -108,9 +90,11 @@ Sugerencia para el próximo año: ${iaResultados.sugerencia_reglamento}`;
         });
     }
 
-    // ==========================================================
-    // Lógica para la página de historial (historial.html)
-    // ==========================================================
+    const btnConsultarReglamento = document.getElementById('btnConsultarReglamento');
+    if (btnConsultarReglamento) {
+        btnConsultarReglamento.addEventListener('click', consultarReglamento);
+    }
+    
     const btnBuscarHistorial = document.getElementById('btnBuscarHistorial');
     if (btnBuscarHistorial) {
         btnBuscarHistorial.addEventListener('click', async function() {
@@ -133,16 +117,12 @@ Sugerencia para el próximo año: ${iaResultados.sugerencia_reglamento}`;
             formData.append('nombreAlumno', nombreAlumno);
 
             try {
-                const response = await fetch(appScriptUrl, {
-                    method: 'POST',
-                    body: formData
-                });
+                const response = await fetch(appScriptUrl, { method: 'POST', body: formData });
                 const data = await response.json();
 
                 if (data.resultado === 'éxito') {
                     nombreAlumnoHistorial.textContent = nombreAlumno;
                     historialTablaBody.innerHTML = '';
-                    
                     if (data.historial.length > 0) {
                         totalFaltas.textContent = `Total de faltas encontradas: ${data.historial.length}`;
                         data.historial.forEach(falta => {
@@ -170,28 +150,18 @@ Sugerencia para el próximo año: ${iaResultados.sugerencia_reglamento}`;
     }
 });
 
-// ==========================================================
-// FUNCIÓN PARA OBTENER Y MOSTRAR LOS DATOS DEL RESUMEN
-// ==========================================================
 async function obtenerResumen() {
     const formData = new FormData();
     formData.append('action', 'obtenerResumen');
-
     const totalAlumnosElement = document.getElementById('totalAlumnos');
     const totalIncidentesElement = document.getElementById('totalIncidentes');
     const totalSancionesElement = document.getElementById('totalSanciones');
-
     totalAlumnosElement.textContent = '--';
     totalIncidentesElement.textContent = '--';
     totalSancionesElement.textContent = '--';
-
     try {
-        const response = await fetch(appScriptUrl, {
-            method: 'POST',
-            body: formData
-        });
+        const response = await fetch(appScriptUrl, { method: 'POST', body: formData });
         const data = await response.json();
-
         if (data.resultado === 'éxito') {
             const resumen = data.resumen;
             totalAlumnosElement.textContent = resumen.totalAlumnos;
@@ -208,5 +178,37 @@ async function obtenerResumen() {
         totalAlumnosElement.textContent = 'Error';
         totalIncidentesElement.textContent = 'Error';
         totalSancionesElement.textContent = 'Error';
+    }
+}
+
+async function consultarReglamento() {
+    const pregunta = document.getElementById('preguntaReglamento').value;
+    const respuestaDiv = document.getElementById('respuestaReglamento');
+    const respuestaTexto = document.getElementById('respuestaTexto');
+
+    if (!pregunta) {
+        alert('Por favor, escribe tu pregunta.');
+        return;
+    }
+
+    respuestaTexto.textContent = 'Buscando en el reglamento...';
+    respuestaDiv.style.display = 'block';
+
+    const formData = new FormData();
+    formData.append('action', 'consultarReglamento');
+    formData.append('pregunta', pregunta);
+
+    try {
+        const response = await fetch(appScriptUrl, { method: 'POST', body: formData });
+        const data = await response.json();
+
+        if (data.resultado === 'éxito') {
+            respuestaTexto.textContent = data.respuestaIA;
+        } else {
+            throw new Error(data.mensaje);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        respuestaTexto.textContent = `Error al consultar el reglamento: ${error.message}`;
     }
 }
