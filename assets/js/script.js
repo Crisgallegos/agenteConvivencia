@@ -3,7 +3,7 @@
 // CÓDIGO COMPLETO PARA EL ARCHIVO script.js
 // ==========================================================
 
-const appScriptUrl = 'https://script.google.com/macros/s/AKfycbwYl5fFJKGHluL5pUSRYb7s5w4cKbNxc0_6nkdHM8oqCd9m2DKtQZC-n-CHZgDPF7bc/exec';
+const appScriptUrl = 'https://script.google.com/macros/s/AKfycbxZ-VTvPcICeqykl6VHZxAkLNxG-DB-PxwD5MDrYDsH5mhsg_o8sbA1Uyx-sGq_8SAI/exec';
 
 document.addEventListener('DOMContentLoaded', function() {
     const totalAlumnosElement = document.getElementById('totalAlumnos');
@@ -11,19 +11,26 @@ document.addEventListener('DOMContentLoaded', function() {
         obtenerResumen();
     }
 
-    const formularioIncidente = document.getElementById('formularioIncidente');
-    if (formularioIncidente) {
-        formularioIncidente.addEventListener('submit', async function(event) {
-            event.preventDefault();
+    const formularioCompleto = document.getElementById('formularioCompleto');
+    const btnAnalizar = document.getElementById('btnAnalizar');
+    const btnGuardar = document.getElementById('btnGuardar');
+
+    if (btnAnalizar) {
+        btnAnalizar.addEventListener('click', async function() {
             const nombreAlumno = document.getElementById('nombreAlumno').value;
             const cursoAlumno = document.getElementById('cursoAlumno').value;
             const descripcion = document.getElementById('descripcionIncidente').value;
             const resultadosDiv = document.getElementById('resultados');
             const sugerenciaIA = document.getElementById('sugerenciaIA');
-            const decisionFinal = document.getElementById('decisionFinal');
+
+            if (!nombreAlumno || !cursoAlumno || !descripcion) {
+                alert("Por favor, completa todos los campos del incidente para analizar.");
+                return;
+            }
 
             sugerenciaIA.textContent = "Analizando el caso con la IA... por favor, espera.";
             resultadosDiv.style.display = 'block';
+            btnAnalizar.disabled = true;
 
             const formData = new FormData();
             formData.append('action', 'analizar');
@@ -47,20 +54,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         textoSugerencia += `Falta: ${iaResultados.falta}\nArtículo: ${iaResultados.articulo}\nSanción: ${iaResultados.sancion}`;
                     }
                     sugerenciaIA.textContent = textoSugerencia;
-                    decisionFinal.value = iaResultados.sancion || iaResultados.sugerencia_reglamento;
+                    document.getElementById('decisionFinal').value = iaResultados.sancion || iaResultados.sugerencia_reglamento;
                 } else {
                     throw new Error(data.mensaje);
                 }
             } catch (error) {
                 console.error('Error:', error);
                 sugerenciaIA.textContent = `Error al analizar el caso: ${error.message}`;
+            } finally {
+                btnAnalizar.disabled = false;
             }
         });
+    }
 
-        const formularioGuardar = document.getElementById('formularioGuardar');
-        formularioGuardar.addEventListener('submit', async function(event) {
-            event.preventDefault();
-            
+    if (btnGuardar) {
+        btnGuardar.addEventListener('click', async function() {
             const nombreAlumno = document.getElementById('nombreAlumno').value;
             const cursoAlumno = document.getElementById('cursoAlumno').value;
             const descripcion = document.getElementById('descripcionIncidente').value;
@@ -68,6 +76,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const decisionFinal = document.getElementById('decisionFinal').value;
             const archivos = document.getElementById('archivosAdjuntos').files;
             
+            // Verificación para evitar guardar sin análisis previo
+            if (sugerenciaIA.includes("Analizando") || sugerenciaIA.includes("Error") || !decisionFinal) {
+                alert("Por favor, analiza el caso primero y completa la decisión final.");
+                return;
+            }
+
             const formData = new FormData();
             formData.append('action', 'guardar');
             formData.append('nombreAlumno', nombreAlumno);
@@ -76,18 +90,18 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('sugerenciaIA', sugerenciaIA);
             formData.append('decisionFinal', decisionFinal);
 
-            for (const archivo of archivos) {
-                formData.append(archivo.name, archivo);
+            for (let i = 0; i < archivos.length; i++) {
+                formData.append('file-' + i, archivos[i]);
             }
 
             try {
+                btnGuardar.disabled = true;
                 const response = await fetch(appScriptUrl, { method: 'POST', body: formData });
                 const data = await response.json();
 
                 if (data.resultado === 'éxito') {
                     alert('¡Éxito! El caso ha sido guardado en el historial.');
-                    document.getElementById('formularioIncidente').reset();
-                    formularioGuardar.reset();
+                    formularioCompleto.reset();
                     document.getElementById('resultados').style.display = 'none';
                     obtenerResumen();
                 } else {
@@ -96,6 +110,8 @@ document.addEventListener('DOMContentLoaded', function() {
             } catch (error) {
                 console.error('Error:', error);
                 alert('Hubo un error de conexión al guardar.');
+            } finally {
+                btnGuardar.disabled = false;
             }
         });
     }

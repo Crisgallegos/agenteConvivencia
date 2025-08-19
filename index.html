@@ -13,136 +13,22 @@
 
 <body>
   <!-- Navbar superior -->
-  <nav style="background-color: #204285; min-height: 48px;" class="w-100">
-    <div class="container d-flex justify-content-between align-items-center py-1" style="min-height: 48px;">
-      <div class="d-flex align-items-center" style="gap: 8px;">
-        <img src="assets/img/logocotela.png" alt="Logo" width="32" height="32" style="object-fit: contain;">
-        <span class="fw-bold text-white" style="font-size: 1.08rem;">Convivencia Escolar</span>
-      </div>
-      <ul class="nav" style="gap: 4px;">
-        <li class="nav-item">
-          <a class="nav-link text-white py-1 px-2" style="font-size: 1rem;" href="#"><i
-              class="bi bi-house-door me-2"></i>Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white py-1 px-2" style="font-size: 1rem;" href="historial.html"><i
-              class="bi bi-clock-history me-2"></i>Historial</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
+  <div id="navbar"></div>
+  <script src="assets/js/navLoader.js"></script>
   <!-- Main Content -->
-  <div class="container-fluid px-0">
-    <div class="flex-grow-1">
-      <main class="p-4">
-        <h2>🔍 Consulta el Reglamento Escolar</h2>
-        <div class="mb-3">
-          <label for="preguntaReglamento" class="form-label">¿Qué deseas saber del reglamento?</label>
-          <textarea class="form-control" id="preguntaReglamento" rows="3"
-            placeholder="Ej: ¿Qué dice el reglamento sobre el uso del teléfono móvil?"></textarea>
-        </div>
-        <button type="button" class="btn btn-primary" id="btnConsultarReglamento">Consultar</button>
-
-        <div class="mt-4" id="respuestaReglamento" style="display:none;">
-          <h4>Respuesta de la IA:</h4>
-          <div class="card p-3">
-            <p id="respuestaTexto"></p>
-          </div>
-        </div>
-        <!-- Tarjetas resumen -->
-        <div class="row g-4 mb-4 mt-4">
-          <div class="col-md-4">
-            <div class="card text-center p-3">
-              <div class="summary-icon bg-primary text-white">
-                <i class="bi bi-people-fill"></i>
-              </div>
-              <h5>Alumnos Registrados</h5>
-              <p class="fs-4 fw-semibold text-dark" id="totalAlumnos">--</p>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-center p-3">
-              <div class="summary-icon bg-warning text-dark">
-                <i class="bi bi-exclamation-triangle-fill"></i>
-              </div>
-              <h5>Incidentes Reportados</h5>
-              <p class="fs-4 fw-semibold text-dark" id="totalIncidentes">--</p>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-center p-3">
-              <div class="summary-icon bg-success text-white">
-                <i class="bi bi-bar-chart-fill"></i>
-              </div>
-              <h5>Sanciones Aplicadas</h5>
-              <p class="fs-4 fw-semibold text-dark" id="totalSanciones">--</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Formulario principal -->
-        <div class="card shadow-lg border-0 rounded-4 w-100">
-          <div class="card-header text-white text-center">
-            <h5 class="mb-0">Registrar Incidente</h5>
-          </div>
-          <div class="card-body p-4">
-            <form id="formularioIncidente" class="mb-4">
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label for="nombreAlumno" class="form-label fw-semibold">Nombre del Alumno</label>
-                  <input type="text" class="form-control shadow-sm" id="nombreAlumno" placeholder="Ej: Juan Pérez"
-                    required>
-                </div>
-                <div class="col-md-6">
-                  <label for="cursoAlumno" class="form-label fw-semibold">Curso</label>
-                  <select class="form-select shadow-sm" id="cursoAlumno" required>
-                    <option value="">Seleccione el curso</option>
-                    <option value="1 básico">1° Básico</option>
-                    <option value="2 básico">2° Básico</option>
-                    <option value="3 básico">3° Básico</option>
-                    <option value="4 básico">4° Básico</option>
-                    <option value="5 básico">5° Básico</option>
-                    <option value="6 básico">6° Básico</option>
-                    <option value="7 básico">7° Básico</option>
-                    <option value="8 básico">8° Básico</option>
-                    <option value="1 medio">1° Medio</option>
-                    <option value="2 medio">2° Medio</option>
-                    <option value="3 medio">3° Medio</option>
-                    <option value="4 medio">4° Medio</option>
-                  </select>
-                </div>
-                <div class="col-12">
-                  <label for="descripcionIncidente" class="form-label fw-semibold">Descripción del Incidente</label>
-                  <textarea class="form-control shadow-sm" id="descripcionIncidente" rows="5"
-                    placeholder="Describe detalladamente lo sucedido..." required></textarea>
-                </div>
-                <div class="form-group mb-3">
-    <label for="archivosAdjuntos" class="form-label">Adjuntar pruebas (fotos o PDF):</label>
-    <input type="file" class="form-control" id="archivosAdjuntos" name="archivosAdjuntos" multiple accept=".jpg,.jpeg,.png,.pdf">
-</div>
-              </div>
-              <button type="submit" class="btn btn-primary w-100 mt-4 shadow">Analizar Caso</button>
-            </form>
-
-            <div id="resultados" class="mt-4" style="display:none;">
-              <hr>
-              <h4 class="mb-3 text-primary fw-semibold">Resultado del Análisis de la IA</h4>
-              <pre id="sugerenciaIA" class="bg-light p-3 rounded-3"><div class="spinner-border text-primary" role="status">
-  <span class="visually-hidden"></span>
-</div></pre>
-              <form id="formularioGuardar">
-                <div class="mb-3">
-                  <label for="decisionFinal" class="form-label fw-semibold">Decisión Final</label>
-                  <textarea class="form-control shadow-sm" id="decisionFinal" rows="3"
-                    placeholder="Confirma o modifica la sanción sugerida..." required></textarea>
-                </div>
-                <button type="submit" class="btn btn-success w-100 shadow">Guardar en el Historial</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </main>
+  <div class="container py-5">
+    <h2>🔍 Consulta el Reglamento Escolar</h2>
+    <div class="mb-3">
+      <label for="preguntaReglamento" class="form-label">¿Qué deseas saber del reglamento?</label>
+      <textarea class="form-control" id="preguntaReglamento" rows="3"
+        placeholder="Ej: ¿Qué dice el reglamento sobre el uso del teléfono móvil?"></textarea>
+    </div>
+    <button type="button" class="btn btn-primary" id="btnConsultarReglamento">Consultar</button>
+    <div class="mt-4" id="respuestaReglamento" style="display:none;">
+      <h4>Respuesta de la IA:</h4>
+      <div class="card p-3">
+        <p id="respuestaTexto"></p>
+      </div>
     </div>
   </div>
 
