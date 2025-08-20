@@ -1,22 +1,36 @@
-  <nav style="background-color: #204285; min-height: 48px;" class="w-100">
-    <div class="container d-flex justify-content-between align-items-center py-1" style="min-height: 48px;">
-      <div class="d-flex align-items-center" style="gap: 8px;">
-        <img src="assets/img/logocotela.png" alt="Logo" width="32" height="32" style="object-fit: contain;">
-        <span class="fw-bold text-white" style="font-size: 1.08rem;">Convivencia Escolar</span>
-      </div>
-      <ul class="nav" style="gap: 4px;">
+<nav class="navbar navbar-expand-lg" style="background-color: #204285; min-height: 56px;">
+  <div class="container">
+    <!-- Logo + Título -->
+    <a class="navbar-brand d-flex align-items-center text-white fw-bold" href="index.html" style="font-size: 1.1rem;">
+      <img src="assets/img/logocotela.png" alt="Logo" width="36" height="36" class="me-2" style="object-fit: contain;">
+      Convivencia Escolar
+    </a>
+
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggler text-white border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menú -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav align-items-lg-center">
         <li class="nav-item">
-          <a class="nav-link text-white py-1 px-2" style="font-size: 1rem;" href="index.html"><i
-              class="bi bi-house-door me-2"></i>Reglamento</a>
+          <a class="nav-link text-white fw-semibold" href="index.html">
+            <i class="bi bi-house-door me-2"></i>Reglamento
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white py-1 px-2" style="font-size: 1rem;" href="historial.html"><i
-              class="bi bi-clock-history me-2"></i>Historial</a>
+          <a class="nav-link text-white fw-semibold" href="historial.html">
+            <i class="bi bi-clock-history me-2"></i>Historial
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white py-1 px-2" style="font-size: 1rem;" href="incidentes.html"><i
-              class="bi bi-clock-history me-2"></i>Incidentes</a>
+          <a class="nav-link text-white fw-semibold" href="incidentes.html">
+            <i class="bi bi-exclamation-triangle me-2"></i>Incidentes
+          </a>
         </li>
       </ul>
     </div>
-  </nav>
+  </div>
+</nav>

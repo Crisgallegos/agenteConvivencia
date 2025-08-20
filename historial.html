@@ -12,48 +12,74 @@
   <script src="assets/js/navLoader.js"></script>
     <div class="container" style="max-width: 900px; margin-top: 40px; margin-bottom: 40px;">
         <div class="card shadow-lg border-0 rounded-4">
-            <div class="card-header bg-primary text-white rounded-top-4">
-                <h2 class="mb-0" style="font-weight: 700; letter-spacing: 1px;">📊 Historial y Estadísticas de Alumnos</h2>
+            <div class="card-header text-white rounded-top-4" style="background-color: #204285;">
+                <h3 class="mb-0" style="font-weight: 600; letter-spacing: 0.5px; font-size: 1.35rem;">📊 Historial y Estadísticas de Alumnos</h3>
             </div>
             <div class="card-body p-4">
-                <form class="mb-4">
-                    <div class="row g-2 align-items-end">
-                        <div class="col-md-9">
-                            <label for="buscarAlumno" class="form-label fw-semibold">Buscar Alumno:</label>
-                            <input type="text" id="buscarAlumno" placeholder="Nombre completo del alumno" class="form-control form-control-lg shadow-sm">
-                        </div>
-                        <div class="col-md-3 d-grid">
-                            <button id="btnBuscarHistorial" type="button" class="btn btn-info btn-lg">Buscar Historial</button>
-                        </div>
-                    </div>
-                </form>
-                <div id="historialResultados" style="display:none; margin-top: 20px;">
-                    <div class="card border-0 shadow-sm mb-3">
-                        <div class="card-body bg-light rounded-3">
-                            <h4 class="mb-3" style="font-weight: 600; color: #0d6efd;">Historial de Faltas: <span id="nombreAlumnoHistorial" class="fw-normal text-dark"></span></h4>
-                            <p id="totalFaltas" class="mb-4"></p>
-                            <div class="table-responsive">
-                                <table class="table table-striped align-middle">
-                                    <thead class="table-primary">
-                                        <tr>
-                                            <th>Fecha</th>
-                                            <th>Incidente</th>
-                                            <th>Sugerencia IA</th>
-                                            <th>Decisión Final</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="historialTablaBody" class="table-group-divider">
-                                        <!-- Aquí se llenarán los datos del historial -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                <form class="mb-4" autocomplete="off">
+                                    <div class="row g-2 align-items-end">
+                                        <div class="col-md-9">
+                                            <label for="buscarAlumno" class="form-label fw-semibold">Buscar Alumno:</label>
+                                            <input type="text" id="buscarAlumno" placeholder="Ej: Juan Pérez" class="form-control form-control-lg shadow-sm" aria-describedby="ayudaAlumno" required>
+                                            <div id="ayudaAlumno" class="form-text text-secondary">Escribe el nombre completo del alumno para ver su historial.</div>
+                                            <div id="validacionAlumno" class="invalid-feedback">Por favor ingresa un nombre válido.</div>
+                                        </div>
+                                        <div class="col-md-3 d-grid">
+                                            <button id="btnBuscarHistorial" type="button" class="btn btn-info btn-lg"><i class="bi bi-search me-2"></i>Buscar Historial</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div id="historialResultados" style="display:none; margin-top: 20px;">
+                                    <div class="card border-0 shadow-sm mb-3">
+                                        <div class="card-body bg-light rounded-3">
+                                            <div id="spinnerHistorial" class="text-center mb-3" style="display:none;">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="visually-hidden">Cargando...</span>
+                                                </div>
+                                                <div class="text-secondary mt-2">Buscando historial...</div>
+                                            </div>
+                                            <h4 class="mb-3" style="font-weight: 600; color: #204285;"><i class="bi bi-journal-text me-2"></i>Historial de Faltas: <span id="nombreAlumnoHistorial" class="fw-normal text-dark"></span></h4>
+                                            <p id="totalFaltas" class="mb-4"></p>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped align-middle">
+                                                    <thead class="table-primary">
+                                                        <tr>
+                                                            <th><i class="bi bi-calendar-event me-1"></i>Fecha</th>
+                                                            <th><i class="bi bi-exclamation-circle me-1"></i>Incidente</th>
+                                                            <th><i class="bi bi-robot me-1"></i>Sugerencia IA</th>
+                                                            <th><i class="bi bi-check2-circle me-1"></i>Decisión Final</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="historialTablaBody" class="table-group-divider">
+                                                        <!-- Aquí se llenarán los datos del historial -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
             </div>
         </div>
     </div>
-    <script src="assets/js/historial.js"></script>
+        <script src="assets/js/historial.js"></script>
+        <script>
+            // Validación UX para el input
+            const buscarAlumno = document.getElementById('buscarAlumno');
+            buscarAlumno.addEventListener('input', function() {
+                if (buscarAlumno.value.trim().length < 3) {
+                    buscarAlumno.classList.add('is-invalid');
+                } else {
+                    buscarAlumno.classList.remove('is-invalid');
+                }
+            });
+            // Spinner UX demo (puedes conectar con tu lógica real)
+            const btnBuscar = document.getElementById('btnBuscarHistorial');
+            const spinner = document.getElementById('spinnerHistorial');
+            btnBuscar.addEventListener('click', function() {
+                spinner.style.display = 'block';
+                setTimeout(() => { spinner.style.display = 'none'; }, 1500); // Simula carga
+            });
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
