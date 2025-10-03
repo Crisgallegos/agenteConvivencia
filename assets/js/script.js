@@ -3,7 +3,7 @@
 // CÓDIGO COMPLETO PARA EL ARCHIVO script.js
 // ==========================================================
 
-const appScriptUrl = 'https://script.google.com/macros/s/AKfycbxZ-VTvPcICeqykl6VHZxAkLNxG-DB-PxwD5MDrYDsH5mhsg_o8sbA1Uyx-sGq_8SAI/exec';
+const appScriptUrl = 'https://script.google.com/macros/s/AKfycbz_tumtCz3gTa59iB3KT99RPCybix2NRQzon0ASri9QJh_USdKZuHGPdpQwR814Vxng/exec';
 
 document.addEventListener('DOMContentLoaded', function() {
     const totalAlumnosElement = document.getElementById('totalAlumnos');
